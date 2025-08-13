@@ -33,17 +33,16 @@ are available in the [`paper`](./paper) directory.
 
 Env setup:
 
-```
-conda create -n gridworld python=3.8 -y
-conda activate gridworld
+Note: As of August 2025, We have migrated the build tool to `uv`.
 
+```
 git clone git@github.com:NREL/PowerGridworld.git
 cd PowerGridWorld
-pip install -e .
-pip install -r requirements.txt
+uv venv
+source .venv/bin/activate
+uv sync --python 3.11
+uv pip install -e .
 ```
-
-We have also added a `pyproject.toml` file to support the use of [poetry](https://python-poetry.org/docs/).  If using poetry, simply do `poetry install`.
 
 Run the pytests to sanity check:
 
