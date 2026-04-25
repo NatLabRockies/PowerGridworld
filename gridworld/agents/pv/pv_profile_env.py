@@ -67,7 +67,7 @@ class PVEnv(ComponentEnv):
         self.profile_csv = profile_csv
         
         # Read the profile data, rescale it, and infer episode length.
-        self.data = pd.read_csv(self.profile_csv).values[:, 0].squeeze()
+        self.data = pd.read_csv(self.profile_csv).to_numpy()[:, 0].squeeze().copy()
         self.data *= self.scaling_factor
         self.episode_length = len(self.data)
 
