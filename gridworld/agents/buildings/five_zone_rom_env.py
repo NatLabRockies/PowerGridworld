@@ -315,8 +315,9 @@ class FiveZoneROMThermalEnergyEnv(FiveZoneROMEnv):
     def __init__(self, *args, alpha: float = 0.2, **kwargs):
         """
         Args:
-            alpha:  Weight in [0, 1] on the energy term of the reward; the
-                comfort term gets weight (1 - alpha).
+            alpha:  Weight in [0, 1] trading energy against comfort.  The
+                reward is 0.5 * alpha * energy_rew + (1 - alpha) * comfort_rew;
+                the extra 0.5 on the energy term predates this argument.
         """
         super().__init__(*args, **kwargs)
         self.alpha = alpha
