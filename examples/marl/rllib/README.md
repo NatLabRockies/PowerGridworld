@@ -4,7 +4,7 @@ Examples of training MARL policies using RLLib.  Do
 pip install -r requirements.txt
 ```
 
-to intall the required dependencies in your environment.
+to install the required dependencies in your environment.
 
 __Note:__  RLLib is a sophisticated software package, and there are many 
 hyperparameters involved in running any given algorithm 

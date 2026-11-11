@@ -49,9 +49,9 @@ class EnergyStorageEnv(ComponentEnv):
         self.simulation_step = 0
         self.max_episode_steps = max_episode_steps
 
-        self.control_interval_in_hr = control_timedelta.seconds / 3600.0
+        self.control_interval_in_hr = control_timedelta.total_seconds() / 3600.0
 
-        self._obs_labels = ["stage_of_charge"]
+        self._obs_labels = ["state_of_charge"]
 
         self._observation_space = gym.spaces.Box(
             shape=(1,),
@@ -91,8 +91,8 @@ class EnergyStorageEnv(ComponentEnv):
                 init_storage = np.clip(
                     init_storage, self.storage_range[0], self.storage_range[1])
             except (TypeError, ValueError) as e:
-                print(e)
-                print("init_storage value needs to be a float, use default value instead")
+                logger.warning(
+                    f"init_storage must be a float ({e}), using initial_storage_mean instead")
                 init_storage = self.initial_storage_mean
 
             self.current_storage = init_storage

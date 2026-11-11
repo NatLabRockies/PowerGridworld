@@ -1,4 +1,3 @@
-from os import system
 import pandas as pd
 
 from gridworld import MultiComponentEnv
@@ -18,7 +17,6 @@ def make_env_config(system_load_rescale_factor=0.65, rescale_spaces=True):
             "name": "building",
             "cls": FiveZoneROMThermalEnergyEnv,
             "config": {
-                "reward_structure": {"alpha": 0.0},  # all comfort focused
                 "rescale_spaces": rescale_spaces
             }
         }
@@ -59,7 +57,7 @@ def make_env_config(system_load_rescale_factor=0.65, rescale_spaces=True):
     }
 
     # OpenDSS configuration.  Note that file paths are relative to 
-    # "power_gridworld/distribution_system/data" by default.
+    # "gridworld/distribution_system/data" by default.
     pf_config = {
         "cls": OpenDSSSolver,
         "config": {

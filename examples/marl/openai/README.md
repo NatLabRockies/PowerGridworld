@@ -5,7 +5,7 @@ __There is a security vulnerability associated with the tensorflow version
 used in this example.  [See this pull request for details](https://github.com/NREL/PowerGridworld/pull/10) 
 -- run at your own risk!__
 
-This document walks through a end-to-end installation of PowerGridworld and 
+This document walks through an end-to-end installation of PowerGridworld and 
 dependencies needed to run the MADDPG example.
 
 To ensure that this example works, use an environment with Python 3.6.
@@ -60,4 +60,5 @@ Run the training script:
 python train.py
 ```
 
-After training, run `plot_learning_curves.py` plot the learning curves.
+After training, use [`paper/fig2/plot_learning_curves.py`](../../../paper/fig2/plot_learning_curves.py)
+to plot the learning curves.

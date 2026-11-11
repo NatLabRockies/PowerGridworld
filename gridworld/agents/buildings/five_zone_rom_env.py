@@ -20,7 +20,7 @@ from gridworld.agents.buildings import five_zone_rom_dynamics as dyn
 
 # Below are control variables' boundary.
 MAX_FLOW_RATE = [2.2, 2.2, 2.2, 2.2, 3.2]  # Max flow rate for each individual zone
-MIN_FLOW_RATE = [.22, .22, .22, .22, .32]  # Max flow rate for each individual zone
+MIN_FLOW_RATE = [.22, .22, .22, .22, .32]  # Min flow rate for each individual zone
 MAX_TOTAL_FLOW_RATE = 10.0  # Total flow rate for all zones should be lower than 10 kg/sec.
 MAX_DISCHARGE_TEMP = 16.0   # Max temp of air leaving chiller
 MIN_DISCHARGE_TEMP = 10.0   # Min temp of air leaving chiller
@@ -200,7 +200,7 @@ class FiveZoneROMEnv(ComponentEnv):
         self.raw_action = action
 
         # Advance the dynamics and update the model and state variables.
-        self.model, self.zone_temp = dyn.dynamics(
+        self.models, self.zone_temp = dyn.dynamics(
             self.models,
             self.zone_temp,
             action,
@@ -286,7 +286,7 @@ class FiveZoneROMEnv(ComponentEnv):
     def step_reward(self) -> Tuple[float, dict]:
         """Default reward is soft constraint on comfort bounds."""
 
-        viol_lower = [v for k,v in self.state.items() if k.startswith("zone_upper_viol_")]
+        viol_lower = [v for k,v in self.state.items() if k.startswith("zone_lower_viol_")]
         viol_upper = [v for k,v in self.state.items() if k.startswith("zone_upper_viol_")]
         
         rew = np.array(viol_lower)**2 + np.array(viol_upper)**2
@@ -312,10 +312,20 @@ class FiveZoneROMEnv(ComponentEnv):
 class FiveZoneROMThermalEnergyEnv(FiveZoneROMEnv):
     """Subclass with identical physics, but that balances energy and comfort costs."""
 
+    def __init__(self, *args, alpha: float = 0.2, **kwargs):
+        """
+        Args:
+            alpha:  Weight in [0, 1] on the energy term of the reward; the
+                comfort term gets weight (1 - alpha).
+        """
+        super().__init__(*args, **kwargs)
+        self.alpha = alpha
+
+
     def step_reward(self) -> Tuple[float, dict]:
         """Overwriting reward to balance energy and comfort."""
 
-        alpha = 0.2
+        alpha = self.alpha
 
         energy_consumption_reward = -self.state["p_consumed"] / 12.0
 

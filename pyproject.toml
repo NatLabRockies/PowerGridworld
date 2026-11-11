@@ -1,8 +1,9 @@
 [project]
 name = "powergridworld"
-version = "0.1.0"
-description = ""
-authors = [{ name = "None" }]
+version = "0.0.1"
+description = "A framework for multi-agent reinforcement learning in power systems"
+authors = [{ name = "David Biagioni" }]
+license = { file = "LICENSE" }
 readme = "README.md"
 dependencies = [
     "gymnasium",

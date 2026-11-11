@@ -45,7 +45,8 @@ class PVEnv(ComponentEnv):
             profile_path:  Full path to profile csv.  If provided, this overrides
                 the profile_csv argument.
 
-            scaling_factor:  Float between 0 and 1 to rescale the csv data by.
+            scaling_factor:  Multiplier applied to the csv data (e.g., to convert
+                a normalized profile to kW).
 
             rescale_spaces:  If True, rescale action/obs spaces to [-1, 1].
 
@@ -128,7 +129,7 @@ class PVEnv(ComponentEnv):
     def reset(self, **kwargs):
         """Resetting consists of simply putting the index back to 0."""
         self.index = 0
-        self.get_obs(**kwargs)
+        return self.get_obs(**kwargs)
 
 
     def step(self, action, **kwargs):

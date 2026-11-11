@@ -1,7 +1,3 @@
-from abc import abstractmethod
-from collections import defaultdict
-
-import logging
 from typing import Dict, Tuple, Union
 
 import numpy as np
@@ -23,14 +19,16 @@ class MultiAgentEnv(Env):
 
     def __init__(
             self,
-            common_config: dict = {},
-            pf_config: dict = {},
+            common_config: dict = None,
+            pf_config: dict = None,
             agents: list = None,
             max_episode_steps: int = None,
             rescale_spaces: bool = True,
             **kwargs
     ):
 
+        common_config = common_config if common_config is not None else {}
+        pf_config = pf_config if pf_config is not None else {}
         self.common_config = common_config
         self.rescale_spaces = rescale_spaces
         assert len(agents) > 0, "need at least one agent!"
@@ -86,12 +84,11 @@ class MultiAgentEnv(Env):
             agent.name: agent.action_space for agent in self.agents}
 
 
-    @abstractmethod
     def get_external_obs_vars(
         self, 
         agent: Union[ComponentEnv, MultiComponentEnv]
     ) -> dict:
-        """These are external variables to the agents, need to implement how
+        """These are external variables to the agents, override to change how
         they get this data so it can be passed to their reset/step methods
         and added to the observation space.  Currently, a user will have to
         overwrite the method to give agents access to other quantities.
@@ -113,13 +110,6 @@ class MultiAgentEnv(Env):
             kwargs["min_voltage"] = min(list(self.voltages.values()))
 
         return kwargs
-
-    
-    @abstractmethod
-    def reward_transform(self, agent_rewards: dict) -> dict:
-        """Function to transform the agent rewards based on centralized view.
-        Pass-through by default but can be overwrittent for custom rewards."""
-        return agent_rewards
 
 
     def reset(self) -> Dict[str, any]:
@@ -197,7 +187,7 @@ class MultiAgentEnv(Env):
         # if any agent is `done`, although the RLLib API allows agents to finish
         # at different times.
         any_done = np.any(list(done.values()))  # will fail otherwise
-        max_steps_reached = (self.episode_step == self.max_episode_steps - 1)
+        max_steps_reached = self.episode_step >= self.max_episode_steps
         time_up = self.time >= self.end_time
         done = any_done or max_steps_reached or time_up
 
@@ -214,7 +204,7 @@ class MultiAgentEnv(Env):
 
     def reward_transform(self, rew_dict) -> dict:
         """Function to transform the agent rewards based on centralized view.
-        Pass-through by default."""
+        Pass-through by default; override for custom rewards."""
         return rew_dict
 
 

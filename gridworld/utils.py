@@ -1,5 +1,3 @@
-import logging
-
 import numpy as np
 
 import gymnasium as gym
@@ -14,8 +12,8 @@ def to_scaled(
 ) -> np.ndarray:
     """Scale the input arr in [low, high] to [-1, 1]"""
 
-    # Warn the user if the arguments are out of bounds, this shouldn't happend.
-    if not np.all(x >= low) and np.all(x <= high):
+    # Warn the user if the arguments are out of bounds, this shouldn't happen.
+    if not (np.all(x >= low) and np.all(x <= high)):
         logger.warning(f"argument out of bounds, {x}, {low}, {high}")
     
     # Clip the values (in case the above warning is ignored).
@@ -33,7 +31,7 @@ def to_raw(
 ) -> np.ndarray:
     """Scale the input y in [-1, 1] to [low, high]"""
 
-    # Warn the user if the arguments are out of bounds, this shouldn't happend.""""
+    # Warn the user if the arguments are out of bounds, this shouldn't happen.
     if not (np.all(y >= -np.ones_like(y) - eps) and np.all(y <= np.ones_like(y) + eps)):
         logger.warning(f"argument out of bounds, {y}, {low}, {high}")
     
@@ -52,24 +50,4 @@ def maybe_rescale_box_space(box, rescale=True):
         return gym.spaces.Box(low=-1., high=1., shape=box.shape, dtype=box.dtype)
     
     return box
-
-
-# def multiagent_action_rescaler(
-#     rescale_func: callable,
-#     env: MultiAgentEnv = None,
-#     action: dict = None,
-# ):
-#     rescaled_action = {}
-#     for a in env.agent_dict:
-#         rescaled_action[a] = {}
-#         for e in env.agent_dict[a].env_dict:
-#             _env = env.agent_dict[a].env_dict[e]
-#             rescaled_action[a][e] = rescale_func(
-#                 action[a][e],
-#                 _env._action_space.low,
-#                 _env._action_space.high)
-#     return rescaled_action
-
-
-
 
