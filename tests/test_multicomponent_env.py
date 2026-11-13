@@ -20,7 +20,7 @@ def test_spaces_are_union_of_components(multicomponent_building_config):
         assert env.action_space[name] == comp.action_space
         assert env.obs_labels_dict[name] == comp.obs_labels
     assert set(env.obs_labels) == {
-        l for comp in env.env_dict.values() for l in comp.obs_labels}
+        label for comp in env.env_dict.values() for label in comp.obs_labels}
 
 
 def test_step_composes_component_results(multicomponent_building_config):

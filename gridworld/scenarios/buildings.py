@@ -1,7 +1,6 @@
 import pandas as pd
 
 from gridworld import MultiComponentEnv
-from gridworld import MultiAgentEnv
 from gridworld.agents.buildings import FiveZoneROMThermalEnergyEnv
 from gridworld.agents.pv import PVEnv
 from gridworld.agents.energy_storage import EnergyStorageEnv

@@ -26,8 +26,8 @@ def test_bounds_follow_config():
     space, labels = make_obs_space(3, config)
 
     assert space.shape == (4,)
-    zone_idx = [i for i, l in enumerate(labels) if l.startswith("zone_temp")]
-    oa_idx = [i for i, l in enumerate(labels) if l == "outdoor_temp"]
+    zone_idx = [i for i, label in enumerate(labels) if label.startswith("zone_temp")]
+    oa_idx = [i for i, label in enumerate(labels) if label == "outdoor_temp"]
     assert len(zone_idx) == 3 and len(oa_idx) == 1
     assert np.all(space.low[zone_idx] == ZONE_TEMP_BOUNDS[0])
     assert np.all(space.high[zone_idx] == ZONE_TEMP_BOUNDS[1])

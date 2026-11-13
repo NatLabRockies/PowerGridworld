@@ -5,7 +5,6 @@ import pandas as pd
 
 import gymnasium as gym
 
-from gridworld.log import logger
 from gridworld import ComponentEnv
 from gridworld.utils import maybe_rescale_box_space, to_raw, to_scaled
 

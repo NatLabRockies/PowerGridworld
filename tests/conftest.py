@@ -2,8 +2,6 @@ import pytest
 
 import pandas as pd
 
-from tests.distribution_system.conftest import opendss_config
-
 import gymnasium as gym
 
 from gridworld.agents.buildings import FiveZoneROMThermalEnergyEnv
@@ -103,6 +101,15 @@ def common_config():
         "start_time": "08-12-2020 00:00:00",
         "end_time": "08-13-2020 00:00:00",
         "control_timedelta": pd.Timedelta(300, "s")
+    }
+
+
+@pytest.fixture(scope="function")
+def opendss_config():
+    return {
+        "feeder_file": "ieee_13_dss/IEEE13Nodeckt.dss",
+        "loadshape_file": "ieee_13_dss/annual_hourly_load_profile.csv",
+        "system_load_rescale_factor": 0.7
     }
 
 
