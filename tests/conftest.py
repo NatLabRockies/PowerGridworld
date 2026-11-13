@@ -184,3 +184,16 @@ def pv_array_config():
 @pytest.fixture
 def energy_storage_config():
     return {}
+
+
+@pytest.fixture(scope="function")
+def buildings_scenario_config():
+    """Two building+PV+storage agents, as in the list-interface notebook."""
+    from gridworld.scenarios.buildings import make_env_config
+    return make_env_config(
+        building_config={},
+        pv_config={"profile_csv": "off-peak.csv", "scaling_factor": 40.},
+        storage_config={"max_power": 20., "storage_range": (3., 250.)},
+        system_load_rescale_factor=0.6,
+        num_buildings=2
+    )
