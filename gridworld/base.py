@@ -6,7 +6,6 @@ import numpy as np
 
 import gymnasium as gym
 
-from gridworld.log import logger
 
 
 class ComponentEnv(gym.Env, ABC):

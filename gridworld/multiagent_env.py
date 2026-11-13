@@ -61,7 +61,7 @@ class MultiAgentEnv(Env):
             if "name" in a["config"]:
                 _config = {k: v for k, v in _config.items() if k != "name"}
                 logger.warning(
-                    f"ignoring 'name' in config dict in favor of constructor argument")
+                    "ignoring 'name' in config dict in favor of constructor argument")
             
             # Call the constructor and append to the agent list.
             new_agent = a["cls"](name=a["name"], **_config, **self.common_config)

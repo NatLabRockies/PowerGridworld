@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Type
+from typing import Dict
 
-from gridworld.log import logger
 
 
 class PowerFlowSolver(ABC):
