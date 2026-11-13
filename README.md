@@ -4,7 +4,7 @@
 ![codeql_workflow](https://github.com/NREL/PowerGridworld/actions/workflows/codeql-analysis.yml/badge.svg)
 
 Authors:  David Biagioni, Xiangyu Zhang, Dylan Wald, Deepthi Vaidhynathan, 
-Rhoit Chintala, Jennifer King, Ahmed S. Zamzam
+Rohit Chintala, Jennifer King, Ahmed S. Zamzam
 
 Corresponding author:  [David Biagioni](https://github.com/davebiagioni)
 
@@ -31,24 +31,21 @@ are available in the [`paper`](./paper) directory.
 
 ### Basic installation instructions
 
-Env setup:
-
-Note: As of August 2025, We have migrated the build tool to `uv`.
+PowerGridworld uses [`uv`](https://docs.astral.sh/uv/) for environment
+management and supports Python 3.10 through 3.12.
 
 ```
 git clone git@github.com:NREL/PowerGridworld.git
-cd PowerGridWorld
-uv venv
-source .venv/bin/activate
-uv sync --python 3.11
+cd PowerGridworld
+uv sync
 uv pip install -e .
 ```
 
-Run the pytests to sanity check:
+Run the tests and example notebooks to sanity check:
 
 ```
-pytest tests/
-pytests --nbmake examples/envs
+uv run pytest tests/
+uv run pytest --nbmake examples/envs
 ```
 
 ### Examples

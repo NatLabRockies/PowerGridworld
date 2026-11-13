@@ -36,15 +36,16 @@ class OpenDSSSolver(PowerFlowSolver):
         import opendssdirect as dss
         self.dss = dss
         self.dss_data_path = os.path.join(DSS_DATA_DIR, feeder_file)
-        self.dss.run_command("Redirect " + self.dss_data_path)
+        self.dss.Command("Redirect " + self.dss_data_path)
 
         self.system_load_rescale_factor = system_load_rescale_factor
 
         load_profile_path = os.path.join(DSS_DATA_DIR, loadshape_file)
         self.annual_hourly_load_profile = np.genfromtxt(load_profile_path)
         if len(self.annual_hourly_load_profile) != 8760:
-            print("Warning: The provided load shape file is not annual hourly ",
-                "profile. Error might occur later")
+            logger.warning(
+                "The provided load shape file is not an annual hourly "
+                "profile; errors might occur later.")
              
         # Initialize class variable
         self.bus_voltages = {}
@@ -131,7 +132,7 @@ class OpenDSSSolver(PowerFlowSolver):
         self._set_load(current_step_load)
 
         # 4. Calculate the power flow
-        self.dss.run_command('Solve mode=snap')
+        self.dss.Command('Solve mode=snap')
         self._prepare_bus_voltages()
 
 
@@ -177,7 +178,7 @@ class OpenDSSSolver(PowerFlowSolver):
         PHASE_MAP = {'a': '.1', 'b': '.2', 'c': '.3'}
 
         if bus_name[-1] in PHASE_MAP.keys():
-            bus_name = bus_name.replace(bus_name[-1], PHASE_MAP[bus_name[-1]])
+            bus_name = bus_name[:-1] + PHASE_MAP[bus_name[-1]]
             return self.bus_voltages[bus_name]
         else:
             # three phase bus, return voltage of all three phases.

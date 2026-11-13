@@ -53,7 +53,7 @@ def make_env_config(
     ]
 
     # OpenDSS configuration.  Note that file paths are relative to 
-    # "power_gridworld/distribution_system/data" by default.
+    # "gridworld/distribution_system/data" by default.
     pf_config = {
         "cls": OpenDSSSolver,
         "config": {
