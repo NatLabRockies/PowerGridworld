@@ -32,7 +32,7 @@ are available in the [`paper`](./paper) directory.
 ### Basic installation instructions
 
 PowerGridworld uses [`uv`](https://docs.astral.sh/uv/) for environment
-management and supports Python 3.10 through 3.12.
+management and supports Python 3.11 through 3.14.
 
 ```
 git clone git@github.com:NREL/PowerGridworld.git
