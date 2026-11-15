@@ -1,7 +1,7 @@
 # PowerGridworld:  A Framework for Multi-Agent Reinforcement Learning in Power Systems
 
-![ci_workflow](https://github.com/NREL/PowerGridworld/actions/workflows/main.yml/badge.svg)
-![codeql_workflow](https://github.com/NREL/PowerGridworld/actions/workflows/codeql-analysis.yml/badge.svg)
+![ci_workflow](https://github.com/NatLabRockies/PowerGridworld/actions/workflows/main.yml/badge.svg)
+![lint_workflow](https://github.com/NatLabRockies/PowerGridworld/actions/workflows/lint.yml/badge.svg)
 
 Authors:  David Biagioni, Xiangyu Zhang, Dylan Wald, Deepthi Vaidhynathan, 
 Rohit Chintala, Jennifer King, Ahmed S. Zamzam

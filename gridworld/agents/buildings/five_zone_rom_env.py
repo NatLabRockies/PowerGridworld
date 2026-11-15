@@ -1,4 +1,3 @@
-from abc import abstractmethod
 from collections import OrderedDict
 import os
 import pickle
@@ -10,7 +9,6 @@ import numpy as np
 
 import gymnasium as gym
 
-from gridworld.log import logger
 from gridworld import ComponentEnv
 from gridworld.utils import to_scaled, to_raw, maybe_rescale_box_space
 from gridworld.agents.buildings.obs_space import make_obs_space
